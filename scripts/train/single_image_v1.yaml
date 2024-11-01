@@ -1,4 +1,6 @@
 datasets:
+- json_path: /fsx/wpq/.data/llavanext/LLaVA-OneVision-Data-Instruct/llava_next_raw_format.json
+  sampling_strategy: all
 - json_path: /fsx/wpq/.data/llavanext/LLaVA-OneVision-Data-Instruct/llavar_gpt4_20k.json
   sampling_strategy: all
 - json_path: /fsx/wpq/.data/llavanext/LLaVA-OneVision-Data-Instruct/mavis_math_metagen.json
