@@ -287,8 +287,13 @@ class Conversation:
                 ret[-1][-1] = msg
         return ret
 
+    # def copy(self):
+    #     return Conversation(system=self.system, roles=self.roles, messages=[[x, y] for x, y in self.messages], offset=self.offset, sep_style=self.sep_style, sep=self.sep, sep2=self.sep2, version=self.version)
+
+    ## handle llama_v3 instantiation of this class.
     def copy(self):
-        return Conversation(system=self.system, roles=self.roles, messages=[[x, y] for x, y in self.messages], offset=self.offset, sep_style=self.sep_style, sep=self.sep, sep2=self.sep2, version=self.version)
+        stop_token_ids = [x for x in self.stop_token_ids] if self.stop_token_ids is not None else self.stop_token_ids
+        return Conversation(system=self.system, roles=self.roles, messages=[[x, y] for x, y in self.messages], offset=self.offset, sep_style=self.sep_style, sep=self.sep, sep2=self.sep2, version=self.version, tokenizer_id=self.tokenizer_id, tokenizer=self.tokenizer, stop_token_ids=stop_token_ids)
 
     def dict(self):
         if len(self.get_images()) > 0:
@@ -377,11 +382,24 @@ conv_llava_llama_2 = Conversation(
     sep2="</s>",
 )
 
+# def safe_load_tokenizer(tokenizer_id):
+#     try:
+#         return AutoTokenizer.from_pretrained(tokenizer_id)
+#     except Exception:
+#         return None
+
+## wpq: modify `safe_load_tokenizer` to use the same tokenizer, instead of instantiating a new one for every copy of a conversation object.
+tokenizers = {}
 def safe_load_tokenizer(tokenizer_id):
     try:
-        return AutoTokenizer.from_pretrained(tokenizer_id)
-    except Exception:
+        if tokenizer_id not in tokenizers:
+            tokenizer = AutoTokenizer.from_pretrained(tokenizer_id)
+            tokenizers[tokenizer_id] = tokenizer
+        return tokenizers[tokenizer_id]
+    except Exception as e:
+        print(e)
         return None
+
 
 conv_llava_llama_3 = Conversation(
     system="You are a helpful language and vision assistant. " "You are able to understand the visual content that the user provides, " "and assist the user with a variety of tasks using natural language.",
@@ -391,10 +409,13 @@ conv_llava_llama_3 = Conversation(
     offset=0,
     sep="<|eot_id|>",
     sep_style=SeparatorStyle.LLAMA_3,
+    # tokenizer_id="meta-llama/Meta-Llama-3-8B-Instruct",
+    # tokenizer=safe_load_tokenizer("meta-llama/Meta-Llama-3-8B-Instruct"),
     tokenizer_id="meta-llama/Meta-Llama-3-8B-Instruct",
-    tokenizer=safe_load_tokenizer("meta-llama/Meta-Llama-3-8B-Instruct"),
+    tokenizer=safe_load_tokenizer("/fsx/wpq/.results/baselines/unsloth/llama-3-8b-Instruct"),
     stop_token_ids=[128009],
 )
+
 
 conv_mistral_instruct = Conversation(
     system="",

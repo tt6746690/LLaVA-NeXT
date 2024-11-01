@@ -1562,6 +1562,17 @@ def train(attn_implementation=None):
     else:
         if tokenizer.unk_token is not None:
             tokenizer.pad_token = tokenizer.unk_token
+
+        ## wpq: apply instruct model's tokenizer chat template to base model (for llama >3 only)
+        if 'llama' in model_args.model_name_or_path.lower():
+            llama_3_instruct_tokenizer = transformers.AutoTokenizer.from_pretrained(
+                '/fsx/wpq/.results/baselines/unsloth/llama-3-8b-Instruct' # llama-3
+                # '/fsx/wpq/.results/baselines/meta-llama/Llama-3.1-8B-Instruct' # llama-3.1
+            )
+            tokenizer.chat_template = llama_3_instruct_tokenizer.chat_template
+            tokenizer.eos_token = llama_3_instruct_tokenizer.eos_token # eos token after SFT
+            tokenizer.pad_token =  '<|finetune_right_pad_id|>'
+
         if model_args.version in conversation_lib.conv_templates:
             conversation_lib.default_conversation = conversation_lib.conv_templates[model_args.version]
         else:
@@ -1693,7 +1704,6 @@ def train(attn_implementation=None):
     data_module = make_supervised_data_module(tokenizer=tokenizer, data_args=data_args)
     trainer = LLaVATrainer(model=model, tokenizer=tokenizer, args=training_args, **data_module)
 
-    import pdb; pdb.set_trace()
     if list(pathlib.Path(training_args.output_dir).glob("checkpoint-*")):
         trainer.train(resume_from_checkpoint=True)
     else:
