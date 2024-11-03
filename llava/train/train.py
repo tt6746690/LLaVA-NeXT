@@ -1459,6 +1459,20 @@ def train(attn_implementation=None):
         rank0_print(f"training_args = {vars(training_args)}\n\n")
         # rank0_print(f"evaluation_args = {vars(evaluation_args)}\n\n")
 
+    ## wpq: write command line arguments to file.
+    from dataclasses import asdict
+    with training_args.main_process_first(local=False, desc=f"Saving args to `{training_args.output_dir+'.args.json'}`"):
+        os.makedirs(training_args.output_dir, exist_ok=True)
+        args_dict_path = os.path.join(training_args.output_dir, 'args.json')
+        with open(args_dict_path, 'w') as f:
+            all_args = {
+                'model_args': asdict(model_args),
+                'data_args': asdict(data_args),
+                'training_args': asdict(training_args),
+            }
+            json.dump(all_args, f, indent=4)
+        print(f'Saving args dict to {args_dict_path}')
+
     local_rank = training_args.local_rank
     compute_dtype = torch.float16 if training_args.fp16 else (torch.bfloat16 if training_args.bf16 else torch.float32)
 
