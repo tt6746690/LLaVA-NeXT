@@ -2,6 +2,7 @@ import torch
 
 from .masked_drop import MaskedDrop
 from .spatial_pool import SpatialPool
+from .adaptive_spatial_pool import AdaptiveSpatialPool
 from .perceiver import PerceiverResampler
 from .qformer import Qformer
 
@@ -24,6 +25,8 @@ def build_vision_resampler(model_args, delay_load=False, **kwargs):
         return MaskedDrop(model_args)
     elif resampler_type == "spatial_pool":
         return SpatialPool(model_args, **kwargs)
+    elif resampler_type == "adaptive_spatial_pool":
+        return AdaptiveSpatialPool(model_args, **kwargs)
     elif resampler_type == "perceiver":
         return PerceiverResampler(model_args, **kwargs)
     elif resampler_type == "qformer":

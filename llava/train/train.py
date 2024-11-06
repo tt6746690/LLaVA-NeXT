@@ -113,6 +113,9 @@ class ModelArguments:
     add_faster_video: Optional[bool] = field(default=False)
     faster_token_stride: Optional[int] = field(default=10)
 
+    ## wpq: added by me
+    mm_spatial_pool_numtoks: Optional[int] = field(default=None)
+
 
 
 @dataclass
@@ -132,6 +135,9 @@ class DataArguments:
     frames_upbound: Optional[int] = field(default=0)
     add_time_instruction: Optional[bool] = field(default=False)
     force_sample: Optional[bool] = field(default=False)
+
+    # wpq 
+    train_size: Optional[int] = field(default=None)
 
 
 @dataclass
@@ -1029,6 +1035,13 @@ class LazySupervisedDataset(Dataset):
                 rank0_print(f"Loaded {len(cur_data_dict)} samples from {data_path}")
                 self.list_data_dict.extend(cur_data_dict)
 
+        # wpq: take train data subset
+        # wpq: make sure the ordering is the same 
+        random.seed(0)
+        random.shuffle(self.list_data_dict)
+        if data_args.train_size is not None:
+            self.list_data_dict = self.list_data_dict[:data_args.train_size]
+
         rank0_print(f"Loaded {len(self.list_data_dict)} samples from {data_path}")
         rank0_print("Formatting inputs...Skip in lazy mode")
         self.tokenizer = tokenizer
@@ -1311,6 +1324,7 @@ def get_model(model_args, training_args, bnb_model_from_pretrained_args):
             model_args.mm_spatial_pool_out_channels is not None,
             model_args.mm_spatial_pool_mode is not None,
             model_args.mm_resampler_type is not None,
+            model_args.mm_spatial_pool_numtoks is not None,
         ]
     ):
         cfg_pretrained = AutoConfig.from_pretrained(model_args.model_name_or_path)
@@ -1333,14 +1347,26 @@ def get_model(model_args, training_args, bnb_model_from_pretrained_args):
         # overwrite_config["max_sequence_length"] = model_args.max_sequence_length
         # overwrite_config["tokenizer_model_max_length"] = model_args.tokenizer_model_max_length
 
-    if model_args.mm_spatial_pool_stride is not None and model_args.mm_spatial_pool_out_channels is not None and model_args.mm_spatial_pool_mode is not None and model_args.mm_resampler_type is not None:
-        overwrite_config["mm_resampler_type"] = model_args.mm_resampler_type
-        overwrite_config["mm_spatial_pool_stride"] = model_args.mm_spatial_pool_stride
-        overwrite_config["mm_spatial_pool_out_channels"] = model_args.mm_spatial_pool_out_channels
-        overwrite_config["mm_spatial_pool_mode"] = model_args.mm_spatial_pool_mode
+    # if model_args.mm_spatial_pool_stride is not None and model_args.mm_spatial_pool_out_channels is not None and model_args.mm_spatial_pool_mode is not None and model_args.mm_resampler_type is not None:
+    #     overwrite_config["mm_resampler_type"] = model_args.mm_resampler_type
+    #     overwrite_config["mm_spatial_pool_stride"] = model_args.mm_spatial_pool_stride
+    #     overwrite_config["mm_spatial_pool_out_channels"] = model_args.mm_spatial_pool_out_channels
+    #     overwrite_config["mm_spatial_pool_mode"] = model_args.mm_spatial_pool_mode
 
+    ## wpq: this is always added, because this is required in get_avgPool2d
     if model_args.mm_spatial_pool_mode is not None:
         overwrite_config["mm_spatial_pool_mode"] = model_args.mm_spatial_pool_mode
+
+    ## wpq: add config required for each
+    if model_args.mm_resampler_type is not None:
+        overwrite_config["mm_resampler_type"] = model_args.mm_resampler_type
+        if  model_args.mm_resampler_type == 'spatial_pool':
+            overwrite_config["mm_spatial_pool_stride"] = model_args.mm_spatial_pool_stride
+            overwrite_config["mm_spatial_pool_out_channels"] = model_args.mm_spatial_pool_out_channels
+            overwrite_config["mm_spatial_pool_mode"] = model_args.mm_spatial_pool_mode
+        elif model_args.mm_resampler_type == 'adaptive_spatial_pool':
+            overwrite_config["mm_spatial_pool_mode"] = model_args.mm_spatial_pool_mode
+            overwrite_config["mm_spatial_pool_numtoks"] = model_args.mm_spatial_pool_numtoks
 
     if overwrite_config:
         assert cfg_pretrained is not None, "cfg_pretrained is None"

@@ -1,0 +1,102 @@
+datasets:
+  - json_path: /fsx/wpq/.data/llavanext/LLaVA-Video-178K-Instruct/0_30_s_academic_v0_1_cap_processed.json
+    sampling_strategy: "all"
+  - json_path: /fsx/wpq/.data/llavanext/LLaVA-Video-178K-Instruct/0_30_s_youtube_v0_1_cap_processed.json
+    sampling_strategy: "all"
+  - json_path: /fsx/wpq/.data/llavanext/LLaVA-Video-178K-Instruct/30_60_s_academic_v0_1_cap_processed.json
+    sampling_strategy: "all"
+  - json_path: /fsx/wpq/.data/llavanext/LLaVA-Video-178K-Instruct/30_60_s_youtube_v0_1_cap_processed.json
+    sampling_strategy: "all"
+  - json_path: /fsx/wpq/.data/llavanext/LLaVA-Video-178K-Instruct/1_2_m_academic_v0_1_cap_processed.json
+    sampling_strategy: "all"
+  - json_path: /fsx/wpq/.data/llavanext/LLaVA-Video-178K-Instruct/1_2_m_youtube_v0_1_cap_processed.json
+    sampling_strategy: "all"
+  - json_path: /fsx/wpq/.data/llavanext/LLaVA-Video-178K-Instruct/0_30_s_academic_oe_v0_1_qa_processed.json
+    sampling_strategy: "all"
+  - json_path: /fsx/wpq/.data/llavanext/LLaVA-Video-178K-Instruct/0_30_s_academic_mc_v0_1_qa_processed.json
+    sampling_strategy: "all"
+  - json_path: /fsx/wpq/.data/llavanext/LLaVA-Video-178K-Instruct/0_30_s_youtube_oe_v0_1_qa_processed.json
+    sampling_strategy: "all"
+  - json_path: /fsx/wpq/.data/llavanext/LLaVA-Video-178K-Instruct/0_30_s_youtube_mc_v0_1_qa_processed.json
+    sampling_strategy: "all"
+  - json_path: /fsx/wpq/.data/llavanext/LLaVA-Video-178K-Instruct/0_30_s_activitynetqa_oe_qa_processed.json
+    sampling_strategy: "all"
+  - json_path: /fsx/wpq/.data/llavanext/LLaVA-Video-178K-Instruct/0_30_s_nextqa_oe_qa_processed.json
+    sampling_strategy: "all"
+  - json_path: /fsx/wpq/.data/llavanext/LLaVA-Video-178K-Instruct/0_30_s_nextqa_mc_qa_processed.json
+    sampling_strategy: "all"
+  - json_path: /fsx/wpq/.data/llavanext/LLaVA-Video-178K-Instruct/0_30_s_perceptiontest_mc_qa_processed.json
+    sampling_strategy: "all"
+  - json_path: /fsx/wpq/.data/llavanext/LLaVA-Video-178K-Instruct/30_60_s_academic_oe_v0_1_qa_processed.json
+    sampling_strategy: "all"
+  - json_path: /fsx/wpq/.data/llavanext/LLaVA-Video-178K-Instruct/30_60_s_academic_mc_v0_1_qa_processed.json
+    sampling_strategy: "all"
+  - json_path: /fsx/wpq/.data/llavanext/LLaVA-Video-178K-Instruct/30_60_s_youtube_oe_v0_1_qa_processed.json
+    sampling_strategy: "all"
+  - json_path: /fsx/wpq/.data/llavanext/LLaVA-Video-178K-Instruct/30_60_s_youtube_mc_v0_1_qa_processed.json
+    sampling_strategy: "all"
+  - json_path: /fsx/wpq/.data/llavanext/LLaVA-Video-178K-Instruct/30_60_s_activitynetqa_oe_qa_processed.json
+    sampling_strategy: "all"
+  - json_path: /fsx/wpq/.data/llavanext/LLaVA-Video-178K-Instruct/30_60_s_nextqa_oe_qa_processed.json
+    sampling_strategy: "all"
+  - json_path: /fsx/wpq/.data/llavanext/LLaVA-Video-178K-Instruct/30_60_s_nextqa_mc_qa_processed.json
+    sampling_strategy: "all"
+  - json_path: /fsx/wpq/.data/llavanext/LLaVA-Video-178K-Instruct/30_60_s_perceptiontest_mc_qa_processed.json
+    sampling_strategy: "all"
+  - json_path: /fsx/wpq/.data/llavanext/LLaVA-Video-178K-Instruct/1_2_m_academic_oe_v0_1_qa_processed.json
+    sampling_strategy: "all"
+  - json_path: /fsx/wpq/.data/llavanext/LLaVA-Video-178K-Instruct/1_2_m_academic_mc_v0_1_qa_processed.json
+    sampling_strategy: "all"
+  - json_path: /fsx/wpq/.data/llavanext/LLaVA-Video-178K-Instruct/1_2_m_youtube_oe_v0_1_qa_processed.json
+    sampling_strategy: "all"
+  - json_path: /fsx/wpq/.data/llavanext/LLaVA-Video-178K-Instruct/1_2_m_youtube_mc_v0_1_qa_processed.json
+    sampling_strategy: "all"
+  - json_path: /fsx/wpq/.data/llavanext/LLaVA-Video-178K-Instruct/1_2_m_activitynetqa_oe_qa_processed.json
+    sampling_strategy: "all"
+  - json_path: /fsx/wpq/.data/llavanext/LLaVA-Video-178K-Instruct/1_2_m_nextqa_oe_qa_processed.json
+    sampling_strategy: "all"
+  - json_path: /fsx/wpq/.data/llavanext/LLaVA-Video-178K-Instruct/1_2_m_nextqa_mc_qa_processed.json
+    sampling_strategy: "all"
+  - json_path: /fsx/wpq/.data/llavanext/LLaVA-Video-178K-Instruct/2_3_m_academic_v0_1_cap_processed.json
+    sampling_strategy: "all"
+  - json_path: /fsx/wpq/.data/llavanext/LLaVA-Video-178K-Instruct/2_3_m_youtube_v0_1_cap_processed.json
+    sampling_strategy: "all"
+  - json_path: /fsx/wpq/.data/llavanext/LLaVA-Video-178K-Instruct/2_3_m_academic_oe_v0_1_qa_processed.json
+    sampling_strategy: "all"
+  - json_path: /fsx/wpq/.data/llavanext/LLaVA-Video-178K-Instruct/2_3_m_academic_mc_v0_1_qa_processed.json
+    sampling_strategy: "all"
+  - json_path: /fsx/wpq/.data/llavanext/LLaVA-Video-178K-Instruct/2_3_m_youtube_oe_v0_1_qa_processed.json
+    sampling_strategy: "all"
+  - json_path: /fsx/wpq/.data/llavanext/LLaVA-Video-178K-Instruct/2_3_m_youtube_mc_v0_1_qa_processed.json
+    sampling_strategy: "all"
+  - json_path: /fsx/wpq/.data/llavanext/LLaVA-Video-178K-Instruct/2_3_m_nextqa_oe_qa_processed.json
+    sampling_strategy: "all"
+  - json_path: /fsx/wpq/.data/llavanext/LLaVA-Video-178K-Instruct/2_3_m_nextqa_mc_qa_processed.json
+    sampling_strategy: "all"
+  - json_path: /fsx/wpq/.data/llavanext/LLaVA-Video-178K-Instruct/2_3_m_activitynetqa_oe_qa_processed.json
+    sampling_strategy: "all"
+  ## vcgbench subset
+  - json_path: /fsx/wpq/.data/llavanext/LLaVA-Video-178K-Instruct/conversation_videochatgpt_processed.json
+    sampling_strategy: all
+  - json_path: /fsx/wpq/.data/llavanext/LLaVA-Video-178K-Instruct/vcg_human_annotated_processed.json
+    sampling_strategy: all
+  - json_path: /fsx/wpq/.data/llavanext/LLaVA-Video-178K-Instruct/vcg-plus_112K_processed.json
+    sampling_strategy: all
+  ## videochat
+  - json_path: /fsx/wpq/.data/llavanext/LLaVA-Video-178K-Instruct/caption_videochat_processed.json
+    sampling_strategy: all
+  - json_path: /fsx/wpq/.data/llavanext/LLaVA-Video-178K-Instruct/conversation_videochat1_processed.json
+    sampling_strategy: all
+  ## subset of mvbench
+  - json_path: /fsx/wpq/.data/llavanext/LLaVA-Video-178K-Instruct/classification_k710_processed.json
+    sampling_strategy: all
+  - json_path: /fsx/wpq/.data/llavanext/LLaVA-Video-178K-Instruct/classification_ssv2_processed.json
+    sampling_strategy: all
+  - json_path: /fsx/wpq/.data/llavanext/LLaVA-Video-178K-Instruct/reasoning_next_qa_processed.json
+    sampling_strategy: all
+  - json_path: /fsx/wpq/.data/llavanext/LLaVA-Video-178K-Instruct/reasoning_clevrer_qa_processed.json
+    sampling_strategy: all
+  - json_path: /fsx/wpq/.data/llavanext/LLaVA-Video-178K-Instruct/reasoning_clevrer_mc_processed.json
+    sampling_strategy: all
+  - json_path: /fsx/wpq/.data/llavanext/LLaVA-Video-178K-Instruct/vqa_webvid_qa_processed.json
+    sampling_strategy: all

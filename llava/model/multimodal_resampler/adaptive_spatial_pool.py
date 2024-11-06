@@ -3,20 +3,25 @@ import torch.nn as nn
 import math
 
 
-class SpatialPool(nn.Module):
+class AdaptiveSpatialPool(nn.Module):
     def __init__(self, model_args, vision_tower):
         super().__init__()
-
+        
         self.mode = model_args.mm_spatial_pool_mode
-        self.stride = model_args.mm_spatial_pool_stride
+        self.numtoks = getattr(model_args, "mm_spatial_pool_numtoks", None)
         self.out_channels = getattr(model_args, "mm_spatial_pool_out_channels", vision_tower.hidden_size)
 
+        if self.numtoks is not None:
+            self.output_size = (int(math.sqrt(self.numtoks)), int(math.sqrt(self.numtoks)))
+        else:
+            raise ValueError("mm_spatial_pool_numtoks must be specified for AdaptiveSpatialPool")
+
         if self.mode == "average":
-            self.pool = nn.AvgPool2d(kernel_size=self.stride, stride=self.stride)
+            self.pool = nn.AdaptiveAvgPool2d(self.output_size)
         elif self.mode == "max":
-            self.pool = nn.MaxPool2d(kernel_size=self.stride, stride=self.stride)
+            self.pool = nn.AdaptiveMaxPool2d(self.output_size)
         elif self.mode == "conv":
-            self.pool = nn.Conv2d(in_channels=vision_tower.hidden_size, out_channels=self.out_channels, kernel_size=self.stride, stride=self.stride)
+            raise ValueError("Adaptive conv pooling is not supported")
         elif self.mode == "bilinear":
             self.pool = None
         else:
@@ -27,12 +32,14 @@ class SpatialPool(nn.Module):
         ori_H = int(ori_W * images.shape[2] // images.shape[3])
 
         B, _, F = image_features.shape
-
         image_features_spatial = image_features.view(B, ori_H, ori_H, F).permute(0, 3, 1, 2)
 
         if self.mode == 'bilinear':
-            scaled_shape = [math.ceil(ori_H / self.stride), math.ceil(ori_W / self.stride)]
-            image_features_spatial_pool = nn.functional.interpolate(image_features_spatial, size=scaled_shape, mode='bilinear')
+            image_features_spatial_pool = nn.functional.interpolate(
+                image_features_spatial, 
+                size=self.output_size, 
+                mode='bilinear'
+            )
         else:
             image_features_spatial_pool = self.pool(image_features_spatial)
 
@@ -41,8 +48,8 @@ class SpatialPool(nn.Module):
     @property
     def config(self):
         return {
-            "mm_resampler_type": "spatial_pool",
-            "mm_spatial_pool_stride": self.stride,
+            "mm_resampler_type": "adaptive_spatial_pool",
+            "mm_spatial_pool_numtoks": self.numtoks,
             "mm_spatial_pool_mode": self.mode,
             "mm_spatial_pool_out_channels": self.out_channels,
         }

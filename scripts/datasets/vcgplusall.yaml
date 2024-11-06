@@ -1,0 +1,27 @@
+# total: ~550k
+datasets:
+## vcgbench subset
+- json_path: /fsx/wpq/.data/llavanext/LLaVA-Video-178K-Instruct/conversation_videochatgpt_processed.json
+  sampling_strategy: all
+- json_path: /fsx/wpq/.data/llavanext/LLaVA-Video-178K-Instruct/vcg_human_annotated_processed.json
+  sampling_strategy: all
+- json_path: /fsx/wpq/.data/llavanext/LLaVA-Video-178K-Instruct/vcg-plus_112K_processed.json
+  sampling_strategy: all
+## videochat
+- json_path: /fsx/wpq/.data/llavanext/LLaVA-Video-178K-Instruct/caption_videochat_processed.json
+  sampling_strategy: all
+- json_path: /fsx/wpq/.data/llavanext/LLaVA-Video-178K-Instruct/conversation_videochat1_processed.json
+  sampling_strategy: all
+## subset of mvbench
+- json_path: /fsx/wpq/.data/llavanext/LLaVA-Video-178K-Instruct/classification_k710_processed.json
+  sampling_strategy: all
+- json_path: /fsx/wpq/.data/llavanext/LLaVA-Video-178K-Instruct/classification_ssv2_processed.json
+  sampling_strategy: all
+- json_path: /fsx/wpq/.data/llavanext/LLaVA-Video-178K-Instruct/reasoning_next_qa_processed.json
+  sampling_strategy: all
+- json_path: /fsx/wpq/.data/llavanext/LLaVA-Video-178K-Instruct/reasoning_clevrer_qa_processed.json
+  sampling_strategy: all
+- json_path: /fsx/wpq/.data/llavanext/LLaVA-Video-178K-Instruct/reasoning_clevrer_mc_processed.json
+  sampling_strategy: all
+- json_path: /fsx/wpq/.data/llavanext/LLaVA-Video-178K-Instruct/vqa_webvid_qa_processed.json
+  sampling_strategy: all
