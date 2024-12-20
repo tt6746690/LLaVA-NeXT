@@ -138,6 +138,7 @@ class DataArguments:
 
     # wpq 
     train_size: Optional[int] = field(default=None)
+    frames_sampler: str = 'uniform' # {'uniform', 'random'}
 
 
 @dataclass
@@ -1766,6 +1767,13 @@ def train(attn_implementation=None):
         safe_save_model_for_hf_trainer(trainer=trainer, output_dir=training_args.output_dir)
 
     rank0_print(f"Model saved to {training_args.output_dir}")
+
+
+    ## wpq: remove intermediate checkpoint.
+    from metasummer2024.utils_submit import delete_intermediate_ckpt
+    ckpt_dir_size = delete_intermediate_ckpt(training_args.output_dir, test=False) / (1024**3)
+    rank0_print(f"[delete_intermediate_ckpts] space savings: {ckpt_dir_size:.2f} GB")
+
 
 
 if __name__ == "__main__":

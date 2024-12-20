@@ -1,0 +1,5 @@
+datasets:
+  - json_path: /fsx/wpq/.data/llavanext/LLaVA-Video-178K-Instruct/0_30_s_perceptiontest_mc_qa_processed.json
+    sampling_strategy: "all"
+  - json_path: /fsx/wpq/.data/llavanext/LLaVA-Video-178K-Instruct/30_60_s_perceptiontest_mc_qa_processed.json
+    sampling_strategy: "all"

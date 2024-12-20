@@ -1,0 +1,14 @@
+datasets:
+## subset of mvbench
+- json_path: /fsx/wpq/.data/llavanext/LLaVA-Video-178K-Instruct/classification_k710_processed.json
+  sampling_strategy: all
+- json_path: /fsx/wpq/.data/llavanext/LLaVA-Video-178K-Instruct/classification_ssv2_processed.json
+  sampling_strategy: all
+- json_path: /fsx/wpq/.data/llavanext/LLaVA-Video-178K-Instruct/reasoning_next_qa_processed.json
+  sampling_strategy: all
+- json_path: /fsx/wpq/.data/llavanext/LLaVA-Video-178K-Instruct/reasoning_clevrer_qa_processed.json
+  sampling_strategy: all
+- json_path: /fsx/wpq/.data/llavanext/LLaVA-Video-178K-Instruct/reasoning_clevrer_mc_processed.json
+  sampling_strategy: all
+- json_path: /fsx/wpq/.data/llavanext/LLaVA-Video-178K-Instruct/vqa_webvid_qa_processed.json
+  sampling_strategy: all
